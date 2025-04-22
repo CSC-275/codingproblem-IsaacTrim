@@ -32,34 +32,46 @@ void Game::displayResults() {
 
 }
 void Game::playGame() {
-    m_matches.clear();
-    m_player.inputPlayerNumbers();
-    m_keno.generateNumbers();
-    cout << endl << "----------------------------------Results----------------------------------" << endl;
-    cout << "Keno Numbers: ";
-    m_keno.printKenoNumbers();
-    cout << "Player Picks: ";
-    m_player.printPlayerNumbers();
-    cout << "You matched: ";
-    printMatches(m_player.getPlayerNumbers(), m_keno.getKenoNumbers());
-    int prize = 0;
-    if(m_matches.size()==5) {
-        prize = 5;
+    bool play = true;
+    while(play) {
+        m_matches.clear();
+        m_player.inputPlayerNumbers();
+        m_keno.generateNumbers();
+        cout << endl << "----------------------------------Results----------------------------------" << endl;
+        cout << "Keno Numbers: ";
+        m_keno.printKenoNumbers();
+        cout << "Player Picks: ";
+        m_player.printPlayerNumbers();
+        cout << "You matched: ";
+        printMatches(m_player.getPlayerNumbers(), m_keno.getKenoNumbers());
+        int prize = 0;
+        if(m_matches.size()==5) {
+            prize = 5;
+        }
+        else if(m_matches.size()==6) {
+            prize = 10;
+        }
+        else if(m_matches.size()==7) {
+            prize = 50;
+        }
+        else if(m_matches.size()==8) {
+            prize = 250;
+        }
+        else if(m_matches.size()==9) {
+            prize = 2500;
+        }
+        else if(m_matches.size()==10) {
+            prize = 25000;
+        }
+        cout <<  endl << "Matching " << m_matches.size() << " of 20 numbers wins $" << prize;
+        cout << "Play again? (y/n): ";
+        char playYN;
+        cin >> playYN;
+        if (playYN == 'n') {
+            play = false;
+        }
+        else {
+            play = true;
+        }
     }
-    else if(m_matches.size()==6) {
-        prize = 10;
-    }
-    else if(m_matches.size()==7) {
-        prize = 50;
-    }
-    else if(m_matches.size()==8) {
-        prize = 250;
-    }
-    else if(m_matches.size()==9) {
-        prize = 2500;
-    }
-    else if(m_matches.size()==10) {
-        prize = 25000;
-    }
-    cout <<  endl << "Matching " << m_matches.size() << " of 20 numbers wins $" << prize;
 }
