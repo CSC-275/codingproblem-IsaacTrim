@@ -44,7 +44,7 @@ void Game::playGame() {
         m_player.printPlayerNumbers();
         cout << "You matched: ";
         printMatches(m_player.getPlayerNumbers(), m_keno.getKenoNumbers());
-        int prize = 0;
+        string prize = 0;
         if(m_matches.size()==5) {
             prize = 5;
         }
@@ -58,10 +58,10 @@ void Game::playGame() {
             prize = 250;
         }
         else if(m_matches.size()==9) {
-            prize = 2500;
+            prize = 2,500;
         }
         else if(m_matches.size()==10) {
-            prize = 25000;
+            prize = 25,000;
         }
         cout <<  endl << "Matching " << m_matches.size() << " of 20 numbers wins $" << prize;
         cout << endl << "Play again? (y/n): ";
