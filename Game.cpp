@@ -35,13 +35,11 @@ void Game::playGame() {
     m_matches.clear();
     m_player.inputPlayerNumbers();
     m_keno.generateNumbers();
-    cout << endl << endl << "----------------------------------Results----------------------------------" << endl;
+    cout << endl << "----------------------------------Results----------------------------------" << endl;
     cout << "Keno Numbers: ";
     m_keno.printKenoNumbers();
-    cout << endl;
     cout << "Player Picks: ";
     m_player.printPlayerNumbers();
-    cout << endl;
     cout << "You matched: ";
     printMatches(m_player.getPlayerNumbers(), m_keno.getKenoNumbers());
     int prize = 0;
