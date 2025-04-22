@@ -64,7 +64,7 @@ void Game::playGame() {
             prize = 25000;
         }
         cout <<  endl << "Matching " << m_matches.size() << " of 20 numbers wins $" << prize;
-        cout << "Play again? (y/n): ";
+        cout << endl << "Play again? (y/n): ";
         char playYN;
         cin >> playYN;
         if (playYN == 'n') {
