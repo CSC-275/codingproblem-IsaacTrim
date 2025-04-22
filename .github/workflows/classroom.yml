@@ -1,0 +1,74 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Test 1
+      id: test-1
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Test 1
+        setup-command: g++ Game.cpp Game.h KenoNumbers.cpp KenoNumbers.h main.cpp
+          Player.cpp Player.h  -o test1
+        command: "./test1"
+        input: |-
+          22
+          50
+          5
+          78
+          36
+          48
+          64
+          65
+          60
+          43
+          n
+        expected-output: "Keno Numbers: 5 22 24 31 34 36 39 43 44 48 49 50 52 58 64
+          65 68 69 72 78 \nPlayer Picks: 5 22 36 43 48 50 60 64 65 78 \nYou matched:
+          5 22 36 43 48 50 64 65 78 \nMatching 9 of 20 numbers wins $2,500"
+        comparison-method: contains
+        timeout: 1
+        max-score: 13
+    - name: Test 2
+      id: test-2
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Test 2
+        setup-command: g++ Game.cpp Game.h KenoNumbers.cpp KenoNumbers.h main.cpp
+          Player.cpp Player.h  -o test2
+        command: "./test2"
+        input: |-
+          55
+          64
+          36
+          60
+          58
+          39
+          72
+          78
+          45
+          2
+          n
+        expected-output: "Keno Numbers: 5 22 24 31 34 36 39 43 44 48 49 50 52 58 64
+          65 68 69 72 78 \nPlayer Picks: 2 36 39 45 55 58 60 64 72 78 \nYou matched:
+          36 39 58 64 72 78 \nMatching 6 of 20 numbers wins $10"
+        comparison-method: contains
+        timeout: 1
+        max-score: 12
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TEST-1_RESULTS: "${{steps.test-1.outputs.result}}"
+        TEST-2_RESULTS: "${{steps.test-2.outputs.result}}"
+      with:
+        runners: test-1,test-2
