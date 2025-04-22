@@ -74,4 +74,5 @@ void Game::playGame() {
             play = true;
         }
     }
+    cout << "THANKS FOR PLAYING!!";
 }
